@@ -51,7 +51,11 @@
             var dataAtual = new Date()
             var diaLogin = dataAtual.getDate()
             var mesLogin = (dataAtual.getMonth()+1);
+            var hora = dataAtual.getHours();         
+            var min = dataAtual.getMinutes();      
+            var seg = dataAtual.getSeconds();
             var dataLogin = diaLogin + '/' + mesLogin
+            var horaLogin = hora + ':' + min + ':' + seg
             var dadosSenha = document.getElementById('senha').value
             var dadosUser = document.getElementById('usuario').value
            
@@ -84,13 +88,13 @@
                 var token = Math.random().toString(16).substr(2) + Math.random().toString(16).substr(2)
                 localStorage.setItem('token', token)
                 localStorage.setItem('userLogado', JSON.stringify(userValid))
-                downloadFiles('logado.txt', dataLogin + ', ' + dadosUser + ', ' + dadosSenha + ', ' + token);
+                downloadFiles('logado.txt', dataLogin + ', ' + horaLogin + ', ' + dadosUser + ', ' + dadosSenha + ', ' + token);
              
             } else {
                 userLabel.setAttribute('style', 'color: red')
                 senhaLabel.setAttribute('style', 'color: red')
                 alert('Usuário ou senha incorretos')
-                downloadFiles('erro.txt', dataLogin + ', ' + dadosUser + ', ' + dadosSenha);
+                downloadFiles('erro.txt', dataLogin + ', ' + horaLogin + ', ' + dadosUser + ', ' + dadosSenha);
                 
             }
         }
