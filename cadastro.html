@@ -1,0 +1,115 @@
+<!-- Amanda Florian - 590673 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Autenticado - Auditoria de Sistemas</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Cadastrar</h1>
+
+            <div class="label-float">
+                <input type="text" id="nome" placeholder="" required>
+                <label id="labelNome" for="nome">nome</label>
+            </div>
+            <div class="label-float">
+                <input type="text" id="usuario" placeholder="" required>
+                <label id='labelUsuario' for="usuario">Usuario</label>
+            </div>
+            <div class="label-float">
+                <input type="text" id="senha" placeholder="" required>
+                <label id="labelSenha" for="senha">Senha</label>
+            </div>
+            <div class="justify-center">
+                <button onclick="Cadastrar()">Cadastrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script >
+
+        var nome = document.querySelector('#nome')
+        var labelNome = document.querySelector('#labelNome')
+        var validaNome = false;
+
+        var usuario = document.querySelector('#usuario')
+        var labelUsuario = document.querySelector('#labelUsuario')
+        var validaUser = false;
+
+        var senha = document.querySelector('#senha')
+        var labelSenha = document.querySelector('#labelSenha')
+        var validaSenha = false;
+
+
+        nome.addEventListener('keyup', () => {
+            if(nome.value.length <= 2) {
+                labelNome.setAttribute('style', 'color: red')
+                labelNome.innerHTML = 'Nome *Insira no minimo 3 caracteres'
+                validaNome = false
+            } else {
+                labelNome.setAttribute('style', 'color: green')
+                labelNome.innerHTML = 'Nome'
+                validaNome = true
+            }
+        })
+
+        usuario.addEventListener('keyup', () => {
+            if(usuario.value.length <= 4) {
+                labelUsuario.setAttribute('style', 'color: red')
+                labelUsuario.innerHTML = 'Usuário *Insira no minimo 5 caracteres'
+                validaUser = false
+            } else {
+                labelUsuario.setAttribute('style', 'color: green')
+                labelUsuario.innerHTML = 'Usuário'
+                validaUser = true
+            }
+        })
+
+        senha.addEventListener('keyup', () => {
+            if(senha.value.length <= 5) {
+                labelSenha.setAttribute('style', 'color: red')
+                labelSenha.innerHTML = 'Senha *Insira no minimo 6 caracteres'
+                validaSenha = false
+            } else {
+                labelSenha.setAttribute('style', 'color: green')
+                labelSenha.innerHTML = 'Senha'
+                validaSenha = true
+            }
+        })
+
+
+        function Cadastrar() {
+
+            if(validaNome && validaUser && validaSenha) {
+                var listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]')
+                listaUser.push(
+                    {
+                        nomeCad: nome.value,
+                        userCad: usuario.value,
+                        senhaCad: senha.value
+                    }
+                )
+                localStorage.setItem('listaUser', JSON.stringify(listaUser))
+                alert('Ok')
+                setTimeout(() => {
+                    window.location.href = 'login.html'
+                }, 3000)
+            } else {
+                alert('Error: faltam dados')
+            }
+
+
+
+        }
+
+
+    </script>
+</body>
+</html>
